@@ -1,0 +1,14 @@
+# The main pipeline for bronze_pipeline1
+
+resources:
+  pipelines:
+    bronze_pipeline1_etl:
+      name: bronze_pipeline1_etl
+      catalog: ${var.catalog}
+      schema: ${var.schema}
+      serverless: true
+      root_path: "."
+
+      libraries:
+        - glob:
+            include: transformations/**
