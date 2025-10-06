@@ -16,4 +16,4 @@ sys.path.append("/Workspace/Users/williamfabyan14@gmail.com/New Pipeline 2025-10
 
 # !!! Before performing any data analysis, make sure to run the pipeline to materialize the sample datasets. The tables referenced in this notebook depend on that step.
 
-display(spark.read.table("business.coffee_shops.dim_suppliers"))
+display(spark.read.table("business.coffee_shops.customer_class"))
