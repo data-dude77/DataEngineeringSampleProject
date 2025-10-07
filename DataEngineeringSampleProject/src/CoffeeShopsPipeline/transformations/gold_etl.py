@@ -69,13 +69,14 @@ def create_customer_class_table():
         "FullName", F.concat(F.col("first_name"), F.lit(" "), F.col("last_name"))
     )
     join_customers_and_sales_transactions = sales_transactions.join(
-        customers, ["customerID"], "left"
+        customers, ["customerID"], "inner"
     )
     customer_class = join_customers_and_sales_transactions.groupBy("QuantityClass").agg(
         F.sum("totalPrice").alias("totalPurchases"),
         F.count("quantity").alias("totalQuantity"),
-        F.collect_set("customerID").alias("customerIDs"),
+        F.array_size(F.collect_set("customerID")).alias("NumberofCustomers"),
         F.collect_set("FullName").alias("CustomerNames"),
+        F.mode("product").alias("BestSellingProducts"),
     )
 
     return customer_class

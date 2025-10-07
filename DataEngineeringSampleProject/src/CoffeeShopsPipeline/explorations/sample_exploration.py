@@ -8,9 +8,9 @@
 
 # COMMAND ----------
 
-import sys
+# import sys
 
-sys.path.append("/Workspace/Users/williamfabyan14@gmail.com/New Pipeline 2025-10-03 13:36")
+# sys.path.append("/Workspace/Users/williamfabyan14@gmail.com/New Pipeline 2025-10-03 13:36")
 
 # COMMAND ----------
 
