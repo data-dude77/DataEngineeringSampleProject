@@ -23,7 +23,7 @@ spark.sql(use_schema_sql)
 
 @dp.table(
     name="business.coffee_shops.raw_data_table",
-    comment="Creating a full table of suppliers,customers,franchises and sales transations",
+    comment="Creating a raw table of suppliers,customers,franchises and sales transations",
 )
 def create_raw_table():
 
@@ -90,3 +90,12 @@ def create_raw_table():
     )
 
     return full_table
+
+
+@dp.table(
+    name="business.coffee_shops.raw_data_streaming_table",
+    comment="Creating a raw STREAMING table of suppliers,customers,franchises and sales transations",
+)
+def create_streaming_raw_table():
+    return spark.readStream.table("business.coffee_shops.raw_data_table")
+
