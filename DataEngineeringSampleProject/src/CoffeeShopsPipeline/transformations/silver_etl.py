@@ -23,7 +23,7 @@ def create_customer_table():
         "customer_zipcode",
         "gender",
     ]
-    customer_cols_select = spark.read.table(
+    customer_cols_select = spark.readStream.table(
         "business.coffee_shops.raw_data_streaming_table"
     ).select(*customer_table_cols)
     customer_cols_select_distinct = customer_cols_select.dropDuplicates().dropna()
@@ -54,7 +54,7 @@ def create_supplier_table():
         "supplier_longitude",
         "supplier_latitude",
     ]
-    supplier_cols_select = spark.read.table(
+    supplier_cols_select = spark.readStream.table(
         "business.coffee_shops.raw_data_streaming_table"
     ).select(*supplier_table_cols)
     supplier_cols_select_distinct = supplier_cols_select.dropDuplicates().dropna()
@@ -106,7 +106,7 @@ def create_franchise_table():
         "franchise_latitude",
     ]
 
-    franchise_cols_select = spark.read.table(
+    franchise_cols_select = spark.readStream.table(
         "business.coffee_shops.raw_data_streaming_table"
     ).select(*franchise_table_cols)
     franchise_cols_select_distinct = franchise_cols_select.dropDuplicates().dropna()
@@ -135,7 +135,7 @@ def create_sales_transactions_table():
         "paymentMethod",
         "cardNumber",
     ]
-    sales_transactions_table_select = spark.read.table(
+    sales_transactions_table_select = spark.readStream.table(
         "business.coffee_shops.raw_data_streaming_table"
     ).select(*sales_transactions_table_cols)
 

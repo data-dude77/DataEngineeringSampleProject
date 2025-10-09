@@ -8,8 +8,8 @@ import pyspark.sql.functions as F
 )
 def create_distance_analysis_table():
     km_to_miles_factor = 0.621371
-    suppliers_table = spark.table("business.coffee_shops.dim_suppliers")
-    franshises_table = spark.table("business.coffee_shops.dim_franchises")
+    suppliers_table = spark.readStream.table("business.coffee_shops.dim_suppliers")
+    franshises_table = spark.readStream.table("business.coffee_shops.dim_franchises")
     join_franchise_supplier_tables = (
         franshises_table.join(suppliers_table, ["supplierID"], "inner")
         .withColumn(
@@ -64,8 +64,8 @@ def create_distance_analysis_table():
     comment="Classify which customers have the largest purchases",
 )
 def create_customer_class_table():
-    sales_transactions = spark.table("business.coffee_shops.fact_sales_transactions")
-    customers = spark.table("business.coffee_shops.dim_customers").withColumn(
+    sales_transactions = spark.read.table("business.coffee_shops.fact_sales_transactions")
+    customers = spark.read.table("business.coffee_shops.dim_customers").withColumn(
         "FullName", F.concat(F.col("first_name"), F.lit(" "), F.col("last_name"))
     )
     join_customers_and_sales_transactions = sales_transactions.join(
