@@ -1,19 +1,22 @@
-from pyspark.sql.functions import udf
-import pyspark.sql.functions as F
-from pyspark.sql.types import FloatType
 
+
+from pyspark.errors import PySparkException
 
 # @udf(returnType=FloatType())
 # def distance_km(distance_miles):
 #     """Convert distance from miles to kilometers (1 mile = 1.60934 km)."""
 #     return distance_miles * 1.60934
 
-@udf(returnType=FloatType())
-def calculate(df, latitude1,longitude1,latitude2,longitude2):
-        km_to_miles_factor=0.621371
-        df=df.withColumn("DistanceMiles", 
-            (F.round((F.acos((F.sin(F.radians(F.col(latitude1))) * F.sin(F.radians(F.col(latitude2)))) + \
-                   ((F.cos(F.radians(F.col(latitude1))) * F.cos(F.radians(F.col(latitude2)))) * \
-                    (F.cos(F.radians(longitude1) - F.radians(longitude2))))
-                       ) * F.lit(6371.0)), 4))*F.lit(km_to_miles_factor))
-        return df
+
+
+def does_table_exist(spark_session,table_name):
+    try:
+        spark_session.sql(
+            f"SELECT 1 FROM {table_name} LIMIT 1"
+        )
+        return True
+    except PySparkException as ex:
+        if ex.getErrorClass() == "TABLE_OR_VIEW_NOT_FOUND":
+            return False
+        else:
+            raise

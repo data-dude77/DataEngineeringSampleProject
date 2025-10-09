@@ -27,8 +27,12 @@ def create_customer_table():
         "business.coffee_shops.raw_data_streaming_table"
     ).select(*customer_table_cols)
     customer_cols_select_distinct = customer_cols_select.dropDuplicates().dropna()
-    gender_condition_statement = F.when(F.col("gender").isin(["male","Male"]), "M").otherwise("F")
-    gender_change = customer_cols_select_distinct.withColumn("gender", gender_condition_statement)
+    gender_condition_statement = F.when(
+        F.col("gender").isin(["male", "Male"]), "M"
+    ).otherwise("F")
+    gender_change = customer_cols_select_distinct.withColumn(
+        "gender", gender_condition_statement
+    )
     return gender_change
 
 
@@ -37,7 +41,6 @@ def create_customer_table():
     comment="Creating a dim table called suppliers",
 )
 @dp.expect_or_drop("supplier id cannot be null", "supplierID IS NOT NULL")
-
 def create_supplier_table():
     supplier_table_cols = [
         "supplierID",
@@ -66,11 +69,19 @@ def create_supplier_table():
         .otherwise("ExtraExtraLarge")
     )
 
-    approved_condition_statement= F.when(F.col("approved")=="No","N").when(F.col("approved")=="Yes","Y").otherwise(F.col("approved"))
+    approved_condition_statement = (
+        F.when(F.col("approved") == "No", "N")
+        .when(F.col("approved") == "Yes", "Y")
+        .otherwise(F.col("approved"))
+    )
 
-    add_new_columns = supplier_cols_select_distinct.withColumn(
-        "ingredient_type", ingredient_type_condition_statement
-    ).withColumn("supplier_size", supplier_size_condition_statement).withColumn("approved",approved_condition_statement)
+    add_new_columns = (
+        supplier_cols_select_distinct.withColumn(
+            "ingredient_type", ingredient_type_condition_statement
+        )
+        .withColumn("supplier_size", supplier_size_condition_statement)
+        .withColumn("approved", approved_condition_statement)
+    )
 
     return add_new_columns
 
