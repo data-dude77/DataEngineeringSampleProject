@@ -1,0 +1,517 @@
+{
+  "datasets": [
+    {
+      "name": "37e4c5a0",
+      "displayName": "Customer & Sales Relationship",
+      "queryLines": [
+        "SELECT c.*, s.* FROM business.coffee_shops.dim_customers_analytics AS c\r\n",
+        "INNER JOIN business.coffee_shops.fact_sales_transactions_analytics AS s\r\n",
+        "ON c.customerID=s.customerID;"
+      ]
+    },
+    {
+      "name": "a881730f",
+      "displayName": "Franchises & Suppliers Relationship",
+      "queryLines": [
+        "SELECT f.*, su.* FROM business.coffee_shops.dim_franchises_analytics AS f\r\n",
+        "INNER JOIN business.coffee_shops.dim_suppliers_analytics AS su\r\n",
+        "ON f.supplierID=su.supplierID;"
+      ]
+    },
+    {
+      "name": "9311a071",
+      "displayName": "Franchise and Sales Relationship",
+      "queryLines": [
+        "SELECT f.*, sa.* FROM business.coffee_shops.dim_franchises_analytics AS f\r\n",
+        "INNER JOIN business.coffee_shops.fact_sales_transactions_analytics AS sa\r\n",
+        "ON f.franchiseID=sa.franchiseID;"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "2c089e55",
+      "displayName": "Coffee Shops Insights",
+      "layout": [
+        {
+          "widget": {
+            "name": "9eaf43fd",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "9311a071",
+                  "fields": [
+                    {
+                      "name": "franchise_name",
+                      "expression": "`franchise_name`"
+                    },
+                    {
+                      "name": "countdistinct(transactionID)",
+                      "expression": "COUNT(DISTINCT `transactionID`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`product` IN (`product`) OR TRUE"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "franchise_name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "countdistinct(transactionID)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "780ebea9",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "37e4c5a0",
+                  "fields": [
+                    {
+                      "name": "quantity",
+                      "expression": "`quantity`"
+                    },
+                    {
+                      "name": "countdistinct(transactionID)",
+                      "expression": "COUNT(DISTINCT `transactionID`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "scatter",
+              "encodings": {
+                "x": {
+                  "fieldName": "quantity",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "countdistinct(transactionID)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 6,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "67a6048b",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a881730f",
+                  "fields": [
+                    {
+                      "name": "franchise_name",
+                      "expression": "`franchise_name`"
+                    },
+                    {
+                      "name": "countdistinct(supplierID)",
+                      "expression": "COUNT(DISTINCT `supplierID`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "franchise_name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "countdistinct(supplierID)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "mark": {
+                "colors": [
+                  "#FF2121",
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "699865b0",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a881730f",
+                  "fields": [
+                    {
+                      "name": "countdistinct(ingredient)",
+                      "expression": "COUNT(DISTINCT `ingredient`)"
+                    },
+                    {
+                      "name": "franchise_country",
+                      "expression": "`franchise_country`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 1,
+              "widgetType": "choropleth-map",
+              "encodings": {
+                "color": {
+                  "fieldName": "countdistinct(ingredient)",
+                  "scale": {
+                    "type": "quantitative",
+                    "colorRamp": {
+                      "mode": "scheme",
+                      "scheme": "reds"
+                    }
+                  }
+                },
+                "region": {
+                  "regionType": "mapbox-v4-admin",
+                  "admin0": {
+                    "fieldName": "franchise_country",
+                    "type": "field",
+                    "geographicRole": "admin0-name"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 6,
+            "height": 8
+          }
+        },
+        {
+          "widget": {
+            "name": "3d4b902e",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a881730f",
+                  "fields": [
+                    {
+                      "name": "approved",
+                      "expression": "`approved`"
+                    },
+                    {
+                      "name": "supplier_latitude",
+                      "expression": "`supplier_latitude`"
+                    },
+                    {
+                      "name": "supplier_longitude",
+                      "expression": "`supplier_longitude`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "symbol-map",
+              "encodings": {
+                "coordinates": {
+                  "latitude": {
+                    "fieldName": "supplier_latitude"
+                  },
+                  "longitude": {
+                    "fieldName": "supplier_longitude"
+                  }
+                },
+                "color": {
+                  "fieldName": "approved",
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "N",
+                        "color": {
+                          "themeColorType": "visualizationColors",
+                          "position": 4
+                        }
+                      },
+                      {
+                        "value": "Y",
+                        "color": {
+                          "themeColorType": "fontColor"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 20,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "a801590f",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "37e4c5a0",
+                  "fields": [
+                    {
+                      "name": "sum(quantity)",
+                      "expression": "SUM(`quantity`)"
+                    },
+                    {
+                      "name": "QuantityClass",
+                      "expression": "`QuantityClass`"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`customer_state` IN (`customer_state`) OR TRUE"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "sum(quantity)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "QuantityClass",
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "BigPurchase",
+                        "color": {
+                          "themeColorType": "canvasBackgroundColor"
+                        }
+                      },
+                      {
+                        "value": "MediumPurchase",
+                        "color": {
+                          "themeColorType": "fontColor"
+                        }
+                      },
+                      {
+                        "value": "SmallPurchase",
+                        "color": "#FF2121"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 3,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
